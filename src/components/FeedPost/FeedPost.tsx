@@ -18,7 +18,7 @@ const FeedPost = () => (
       }}
       style={styles.userAvatar}
       />
-      <Text style={styles.userName}>SchmoogrBooger
+      <Text style={styles.userName}>ChadChaddington
 
       </Text>
       <Entypo 
@@ -67,13 +67,13 @@ const FeedPost = () => (
 
 <Text style={styles.text}>
   Liked by{' '} 
-  <Text style={styles.bold}>your butt</Text> and{' '} 
+  <Text style={styles.bold}>Stacy</Text> and{' '} 
   <Text style={styles.bold}>66 others</Text>
   </Text>
 
   {/* Post Description */}
   <Text style={styles.text}>
-    <Text style={styles.bold}>SchmoogerBooger</Text>{' '}
+    <Text style={styles.bold}>ChadChaddington</Text>{' '}
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium eos earum quam quidem accusamus, provident dolores eaque temporibus! Quidem, nesciunt dicta doloremque assumenda quod consectetur dolore incidunt est perferendis iste!
   </Text>
 
@@ -81,7 +81,7 @@ const FeedPost = () => (
   <Text style={styles.lightText}>View all 16 comments</Text>
   <View style={styles.comment}>
     <Text style={styles.commentText}>
-      <Text style={styles.bold}>Stinystonk</Text>{' '}
+      <Text style={styles.bold}>Chadleigh</Text>{' '}
        Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, cum!
     </Text>
     <AntDesign

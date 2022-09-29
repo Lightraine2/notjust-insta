@@ -5,20 +5,28 @@ import {AntDesign} from '@expo/vector-icons';
 import { Entypo, Feather, Ionicons } from '@expo/vector-icons'; 
 import styles from './styles';
 
+import Comment from './Comment/Comment';
+import { IPost } from '../../types/models';
+
+interface IFeedPost  {
+  post: IPost
+}
 
 // get icons like so
 //import { createIconSet } from 'react-native-vector-icons';
 
-const FeedPost = () => (
+const FeedPost = (props: IFeedPost) => {
+  const {post} = props;
+  return (
   <View style={styles.post}>
     {/* Header */}
     <View style={styles.header}>
       <Image source={{
-          uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg',
+          uri: post.user.image,
       }}
       style={styles.userAvatar}
       />
-      <Text style={styles.userName}>ChadChaddington
+      <Text style={styles.userName}>{post.user.username}
 
       </Text>
       <Entypo 
@@ -31,7 +39,7 @@ const FeedPost = () => (
 
     {/* Content */}
     <Image source={{
-      uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg'
+      uri: post.image
       }} 
       style={styles.image} 
       />
@@ -68,37 +76,30 @@ const FeedPost = () => (
 <Text style={styles.text}>
   Liked by{' '} 
   <Text style={styles.bold}>Stacy</Text> and{' '} 
-  <Text style={styles.bold}>66 others</Text>
+  <Text style={styles.bold}>{post.nofLikes}</Text>
   </Text>
 
   {/* Post Description */}
   <Text style={styles.text}>
-    <Text style={styles.bold}>ChadChaddington</Text>{' '}
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium eos earum quam quidem accusamus, provident dolores eaque temporibus! Quidem, nesciunt dicta doloremque assumenda quod consectetur dolore incidunt est perferendis iste!
+    <Text style={styles.bold}>{post.user.username}</Text>{' '}
+      {post.description}
   </Text>
 
   {/* Comments */}
-  <Text style={styles.lightText}>View all 16 comments</Text>
-  <View style={styles.comment}>
-    <Text style={styles.commentText}>
-      <Text style={styles.bold}>Chadleigh</Text>{' '}
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, cum!
-    </Text>
-    <AntDesign
-    name={'hearto'}
-    size={16}
-    style={styles.icon}
-    color={colors.black}
-  />
-  </View>
+  <Text style={styles.lightText}>View all {post.nofComments} comments</Text>
+  {post.comments.map(comment => (
+    <Comment key={comment.id} comment={comment} />
+  ))}
+
+
 
   {/* Posted date */}
 
-  <Text style={styles.lightText}>19th December 2021</Text>
+  <Text style={styles.lightText}>{post.createdAt}</Text>
 
 </View>
 </View>
-)
+)}
 
 
 

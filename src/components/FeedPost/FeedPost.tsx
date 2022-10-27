@@ -8,6 +8,7 @@ import styles from './styles';
 import DoublePressable from '../DoublePressable';
 import Comment from './Comment/Comment';
 import { IPost } from '../../types/models';
+import Carousel from '../Carousel'
 
 interface IFeedPost  {
   post: IPost
@@ -16,7 +17,7 @@ interface IFeedPost  {
 // get icons like so
 //import { createIconSet } from 'react-native-vector-icons';
 
-const FeedPost = (props: IFeedPost) => {
+const FeedPost = ({post}: IFeedPost) => {
 
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
@@ -30,6 +31,21 @@ const FeedPost = (props: IFeedPost) => {
     setIsLiked(v => !v);
   }
 
+  let content = null;
+  if (post.image) {
+    content = (
+      <Image source={{
+        uri: post.image
+        }} 
+        style={styles.image} 
+        />
+    );
+  } else if (post.images) {
+    content = 
+      <Carousel images={post.images} />;
+    
+  }
+
   let lastTap = 0;
   const handleDoublePress = () => {
     const now = Date.now();
@@ -40,7 +56,7 @@ const FeedPost = (props: IFeedPost) => {
     lastTap = now;
   } 
 
-  const {post} = props;
+//  const {post} = props;
   return (
   <View style={styles.post}>
     {/* Header */}
@@ -63,11 +79,7 @@ const FeedPost = (props: IFeedPost) => {
 
     {/* Content */}
     <DoublePressable onDoublePress={toggleLike}>
-    <Image source={{
-      uri: post.image
-      }} 
-      style={styles.image} 
-      />
+    {content}
     </DoublePressable>
     {/* Footer */}
   <View style={styles.footer} >

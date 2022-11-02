@@ -42,7 +42,7 @@ const FeedPost = ({post}: IFeedPost) => {
     );
   } else if (post.images) {
     content = 
-      <Carousel images={post.images} />;
+      <Carousel images={post.images} onDoublePress={toggleLike}/>;
     
   }
 
@@ -61,11 +61,13 @@ const FeedPost = ({post}: IFeedPost) => {
   <View style={styles.post}>
     {/* Header */}
     <View style={styles.header}>
+    <DoublePressable onDoublePress={toggleLike}>
       <Image source={{
           uri: post.user.image,
       }}
       style={styles.userAvatar}
       />
+      </DoublePressable> 
       <Text style={styles.userName}>{post.user.username}
 
       </Text>
@@ -78,9 +80,9 @@ const FeedPost = ({post}: IFeedPost) => {
     </View>
 
     {/* Content */}
-    <DoublePressable onDoublePress={toggleLike}>
+
     {content}
-    </DoublePressable>
+
     {/* Footer */}
   <View style={styles.footer} >
   <View style={styles.iconContainer}>

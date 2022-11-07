@@ -9,15 +9,17 @@ import DoublePressable from '../DoublePressable';
 import Comment from './Comment/Comment';
 import { IPost } from '../../types/models';
 import Carousel from '../Carousel'
+import VideoPlayer from '../VideoPlayer'
 
 interface IFeedPost  {
-  post: IPost
+  post: IPost;
+  isVisible: boolean
 }
 
 // get icons like so
 //import { createIconSet } from 'react-native-vector-icons';
 
-const FeedPost = ({post}: IFeedPost) => {
+const FeedPost = ({post, isVisible}: IFeedPost) => {
 
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
@@ -44,6 +46,12 @@ const FeedPost = ({post}: IFeedPost) => {
     content = 
       <Carousel images={post.images} onDoublePress={toggleLike}/>;
     
+  } else if (post.video) {
+    content = (
+      <DoublePressable onDoublePress={toggleLike}>
+    <VideoPlayer uri={post.video} paused={!isVisible}/>
+    </DoublePressable>
+    )
   }
 
   let lastTap = 0;

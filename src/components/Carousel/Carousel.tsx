@@ -1,5 +1,5 @@
 import React, { Component, useState, useRef } from 'react'
-import { FlatList, Text, View, Image, useWindowDimensions, ViewabilityConfig } from 'react-native'
+import { FlatList, Text, View, Image, useWindowDimensions, ViewabilityConfig, ViewToken } from 'react-native'
 import colors from '../../theme/colors';
 import DoublePressable from '../DoublePressable';
 
@@ -13,6 +13,7 @@ const Carousel = ({images, onDoublePress= () => {}}: ICarousel) => {
 
     const {width} = useWindowDimensions();
     const [activeImageIndex, setActiveImageIndex] = useState(0);
+    
 
     const viewabilityConfig: ViewabilityConfig = {
       itemVisiblePercentThreshold: 51

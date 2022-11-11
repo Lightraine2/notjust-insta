@@ -1,35 +1,35 @@
 [
     {
         "id":"1",
-        "name":"",
-        "headline":"",
-        "address":"",
-        "latlng":"",
-        "email":"",
-        "phone":"",
-        "images":"",
-        "classes":""
+        "name":"Bath SKY Taekwondo",
+        "headline":"WT Style, British Taekwondo Affiliated",
+        "address":"University of Bath Sports Training Village",
+        "latlng":"51.37870407104492,-2.326225757598877",
+        "email":"admin@bathtaekwondo.co.uk",
+        "phone":"+44123456789",
+        "images":[""],
+        "classes":[""]
     },
     {
         "id":"2",
-        "name":"",
-        "headline":"",
-        "address":"",
-        "latlng":"",
-        "email":"",
-        "phone":"",
-        "images":"",
-        "classes":""
+        "name":"Melksham MMA",
+        "headline":"Boxing, BJJ, Muay Thai",
+        "address":"Melksham, Wiltshire, England",
+        "latlng":"51.3759342,-2.1314633",
+        "email":"chads@melkshammma.co.uk",
+        "phone":"+4498765432",
+        "images":[""],
+        "classes":[""]
     },
     {
         "id":"3",
-        "name":"",
-        "headline":"",
-        "address":"",
-        "latlng":"",
-        "email":"",
+        "name":"An WuShu",
+        "headline":"Bagua Zhang, Tai Qi and Xing Yi Fist",
+        "address":"Hebs House",
+        "latlng":"51.46400833129883, -2.6107428073883057",
+        "email":"earl@hebner.com",
         "phone":"",
-        "images":"",
-        "classes":""
+        "images":[""],
+        "classes":[""]
     }
 ]

@@ -1,0 +1,35 @@
+[
+    {
+        "id":"1",
+        "name":"",
+        "headline":"",
+        "address":"",
+        "latlng":"",
+        "email":"",
+        "phone":"",
+        "images":"",
+        "classes":""
+    },
+    {
+        "id":"2",
+        "name":"",
+        "headline":"",
+        "address":"",
+        "latlng":"",
+        "email":"",
+        "phone":"",
+        "images":"",
+        "classes":""
+    },
+    {
+        "id":"3",
+        "name":"",
+        "headline":"",
+        "address":"",
+        "latlng":"",
+        "email":"",
+        "phone":"",
+        "images":"",
+        "classes":""
+    }
+]

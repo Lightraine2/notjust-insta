@@ -11,8 +11,8 @@ const App = () => {
 
   <View style={styles.app}>
    
-  <HomeScreen />
-  {/* <CommentsScreen /> */}
+  {/* <HomeScreen /> */}
+  <CommentsScreen />
 
   </View>
 

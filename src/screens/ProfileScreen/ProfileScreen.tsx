@@ -1,5 +1,6 @@
 import {View, Text, Image} from 'react-native'
 import user from '../../assets/data/user.json'
+import Button from '../../components/Button'
 import styles from './styles'
 
 const ProfileScreen = () => {
@@ -22,6 +23,13 @@ const ProfileScreen = () => {
                 <Text>Following</Text>
                 </View>
             </View>
+
+            <Text style={styles.userName}>{user.name}</Text>
+            <Text style={styles.userBio}>{user.bio}</Text>
+
+        <Button text="Edit Profile" onPress={() => console.warn("On edit profile")} />
+        <Button text="Edit Profile" onPress={() => console.warn("On edit profile")} />
+        <Button text="Edit Profile" onPress={() => console.warn("On edit profile")} />
         </View>
     )
 }

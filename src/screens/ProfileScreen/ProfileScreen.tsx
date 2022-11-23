@@ -27,9 +27,15 @@ const ProfileScreen = () => {
             <Text style={styles.userName}>{user.name}</Text>
             <Text style={styles.userBio}>{user.bio}</Text>
 
+        <View style={{flexDirection: 'row'}}>
+        <Button 
+        text="Edit Profile" 
+        onPress={() => console.warn("On edit profile")} 
+        />
+        
         <Button text="Edit Profile" onPress={() => console.warn("On edit profile")} />
-        <Button text="Edit Profile" onPress={() => console.warn("On edit profile")} />
-        <Button text="Edit Profile" onPress={() => console.warn("On edit profile")} />
+        <Button text="Another Button" onPress={() => console.warn("Another button")} />
+        </View>
         </View>
     )
 }

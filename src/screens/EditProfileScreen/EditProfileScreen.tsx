@@ -6,6 +6,9 @@ import colors from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import { IUser } from '../../types/models';
 
+const URL_REGEX =
+/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+
 type IEditableUserField = 'name' | 'username' | 'website' | 'bio'
 type IEditableUser = Pick<IUser, IEditableUserField>;
 
@@ -14,30 +17,42 @@ interface ICustomInput {
     label: string,
     name: IEditableUserField,
     multiline?: boolean;
+    rules?: object;
 }
 
 const CustomInput = ({
     control, 
     name, 
     label, 
-    multiline = false
+    multiline = false,
+    rules= {}
     }: ICustomInput) => (
     <Controller 
         control={control}
         name={name}
-        render={({field: {onChange, value, onBlur}}) => (
+        rules={rules}
+        render={({field: {onChange, value, onBlur}, fieldState: {error}}) => {
+            
+            return (
             <View style={styles.inputContainer}>
-            <Text style={styles.label}>Label</Text>
+            <Text style={styles.label}>{label}</Text>
+            <View style={{flex: 1}}>
             <TextInput 
+            autoCapitalize='none'
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            style={styles.input} 
-            placeholder='hello' 
+            style={[styles.input, {borderColor: error ? colors.error : colors.border}]} 
+            placeholder=' ' 
             multiline={multiline}
             />
+            {error && <Text style={{color: colors.error}}>
+            {error.message || 'Error'}
+            </Text>}
+            </View>
         </View>
-        )}
+        )
+    }}
     />
    
 )
@@ -46,21 +61,38 @@ const CustomInput = ({
 
 const EditProfileScreen = () => {
 
-    const {control, handleSubmit} = useForm<IEditableUser>();
+    const {
+        control, 
+        handleSubmit, 
+        formState: {errors}
+        } = useForm<IEditableUser>({
+            defaultValues: {
+                name: user.name,
+                username: user.username,
+                website: user.website,
+                bio: user.bio
+            }
+        });
 
     const onSubmit = (data: IEditableUser) => {
         console.warn('button submit', data)
     }
+
+    console.log(errors)
 
     return (
         <View style={styles.page}>
             <Image source={{uri: user.image}} style={styles.avatar} />
             <Text style={styles.textButton}>Change Profile Photo</Text>
             
-            <CustomInput name="name" control={control} label='Name'/>
-            <CustomInput name= "username" control={control} label='Username'/>
-            <CustomInput name="website" control={control} label='Website'/>
-            <CustomInput name="bio" control={control} label='Bio' multiline/>
+            <CustomInput name="name" control={control} label='Name' rules={{required: 'name is required - custom error message'}}/>
+
+            <CustomInput name= "username" control={control} label='Username' rules={{required: 'username is required', minLength: {value:3, message: 'minlength is 3 custom message'}}}/>
+
+            {/* using custom regex cares about first letter capital*/}
+            <CustomInput name="website" control={control} label='Website' rules={{pattern: { value: URL_REGEX, message: 'invalid url'}}}/>
+
+            <CustomInput name="bio" control={control} label='Bio' multiline rules={{required: 'bio required', maxLength: { value: 200, message: 'bio has maxlength 200'}}}/>
 
             <Text style={styles.textButton} onPress={handleSubmit(onSubmit)}>
                 Submit
@@ -95,7 +127,6 @@ const styles = StyleSheet.create({
         width: 75
     },
     input: {
-        flex: 1,
         borderColor: colors.border,
         borderWidth: 1
     }

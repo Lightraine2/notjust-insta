@@ -6,7 +6,8 @@ const colors = {
     black: '#000',
     grey: '#666666',
     lightgrey: '#cccccc',
-    border: '#dcdcdc'
+    border: '#dcdcdc',
+    error: '#fc0349'
 
 };
 

@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, Image, TextInput} from 'react-native';
 import {useForm, Controller, Control} from 'react-hook-form'
+import {launchImageLibrary} from 'react-native-image-picker'
 import user from '../../assets/data/user.json'
 import colors from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import { IUser } from '../../types/models';
+
+
 
 const URL_REGEX =
 /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -78,12 +81,19 @@ const EditProfileScreen = () => {
         console.warn('button submit', data)
     }
 
-    console.log(errors)
+    const onChangePhoto = () => {
+        launchImageLibrary({ mediaType: 'photo'}, ({}) => {
+
+        })
+    }
+
 
     return (
         <View style={styles.page}>
             <Image source={{uri: user.image}} style={styles.avatar} />
-            <Text style={styles.textButton}>Change Profile Photo</Text>
+            <Text style={styles.textButton} onPress={onChangePhoto}>
+                Change Profile Photo   
+            </Text>
             
             <CustomInput name="name" control={control} label='Name' rules={{required: 'name is required - custom error message'}}/>
 

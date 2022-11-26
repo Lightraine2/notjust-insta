@@ -6,7 +6,7 @@ import user from '../../assets/data/user.json'
 import colors from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import { IUser } from '../../types/models';
-
+import * as ImagePicker from 'expo-image-picker'
 
 
 const URL_REGEX =
@@ -64,6 +64,8 @@ const CustomInput = ({
 
 const EditProfileScreen = () => {
 
+    const [image, setImage] = useState(null)
+
     const {
         control, 
         handleSubmit, 
@@ -81,10 +83,33 @@ const EditProfileScreen = () => {
         console.warn('button submit', data)
     }
 
-    const onChangePhoto = () => {
-        launchImageLibrary({ mediaType: 'photo'}, ({}) => {
+    // React native without expo
+    // const onChangePhoto = () => {
+    //     launchImageLibrary(
+    //         { mediaType: 'photo'},
+    //          ({didCancel, errorCode, errorMessage, assets}) => {
+    //         if (!didCancel && !errorCode) {
+    //             console.log(assets)
+    //         }
 
-        })
+    //     })
+    // }
+
+    const onChangePhoto = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4,3],
+            quality: 1
+        });        
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.cancelled)
+        }
+
     }
 
 

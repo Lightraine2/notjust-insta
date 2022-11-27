@@ -64,6 +64,8 @@ const CustomInput = ({
 
 const EditProfileScreen = () => {
 
+    const [selectedPhoto, setSelectedPhoto] = useState(null)
+
     const [image, setImage] = useState(null)
 
     const {
@@ -105,6 +107,7 @@ const EditProfileScreen = () => {
         });        
 
         console.log(result);
+        setSelectedPhoto(result);
 
         if (!result.cancelled) {
             setImage(result.cancelled)
@@ -115,7 +118,7 @@ const EditProfileScreen = () => {
 
     return (
         <View style={styles.page}>
-            <Image source={{uri: user.image}} style={styles.avatar} />
+            <Image source={{uri: selectedPhoto?.uri || user.image}} style={styles.avatar} />
             <Text style={styles.textButton} onPress={onChangePhoto}>
                 Change Profile Photo   
             </Text>
@@ -139,7 +142,8 @@ const EditProfileScreen = () => {
 const styles = StyleSheet.create({
     page: {
         alignItems: 'center',
-        padding: 10
+        padding: 10,
+        marginTop: 20
 
     },
     avatar: {

@@ -1,6 +1,8 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Camera } from 'expo-camera';
+import colors from '../../theme/colors';
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const PostUploadScreen = () => {
   const [hasPermissions, setHasPermissions] = useState<boolean | null> (null);
@@ -27,10 +29,33 @@ const PostUploadScreen = () => {
 
 
   return (
-    <SafeAreaView>
-      <Text>PostUploadScreen</Text>
+    <SafeAreaView style={styles.page}>
+      <Camera style={styles.camera}/>
+      <View style={styles.buttonContainer}>
+        <MaterialIcons name="close" size={30} color={colors.white} />
+        <Text style={{color: colors.white}}>boogers live here</Text>
+      </View>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+    page: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: colors.black
+    },
+    camera: {
+        width: '100%',
+        aspectRatio: 3/4,
+    
+
+    },
+    buttonContainer: {
+        position: 'absolute',
+        marginLeft: 100
+
+    }
+})
 
 export default PostUploadScreen

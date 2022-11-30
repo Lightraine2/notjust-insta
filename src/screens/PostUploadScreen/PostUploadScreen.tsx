@@ -22,7 +22,7 @@ const flashModeToIcon = {
 const PostUploadScreen = () => {
   const [hasPermissions, setHasPermissions] = useState<boolean | null> (null);
   const [cameraType, setCameraType] = useState(CameraType.back);
-  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [flash, setFlash] = useState(Camera.Constants.FlashMode.on);
   const [isCameraReady, setIsCameraReady] = useState(false)
 
   const camera = useRef<Camera>(null)
@@ -82,7 +82,7 @@ const PostUploadScreen = () => {
         type={cameraType} 
         ratio="4:3" 
         flashMode={flash} 
-//        onCameraReady={() => setIsCameraReady(true)} 
+       onCameraReady={() => setIsCameraReady(true)} 
       />
       
       <View style={[styles.buttonContainer, {top: 40}]}>

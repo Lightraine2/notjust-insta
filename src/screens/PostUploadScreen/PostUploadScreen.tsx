@@ -89,6 +89,7 @@ const PostUploadScreen = () => {
         <MaterialIcons name="close" size={30} color={colors.white} />
 
         <Pressable onPress={flipFlash}>
+
         <MaterialIcons 
           name={flashModeToIcon[flash]} 
           size={30} 

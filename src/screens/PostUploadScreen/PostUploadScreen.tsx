@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, StyleSheet, Pressable } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
-import { Camera, CameraPictureOptions, FlashMode } from 'expo-camera';
+import {Camera, CameraType, FlashMode, CameraRecordingOptions, CameraPictureOptions, VideoQuality} from "expo-camera";
 import colors from '../../theme/colors';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
@@ -21,7 +21,7 @@ const flashModeToIcon = {
 
 const PostUploadScreen = () => {
   const [hasPermissions, setHasPermissions] = useState<boolean | null> (null);
-  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [cameraType, setCameraType] = useState(CameraType.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [isCameraReady, setIsCameraReady] = useState(false)
 
@@ -41,8 +41,8 @@ const PostUploadScreen = () => {
 
   const flipCamera = () => {
     setCameraType(currentCameraType => 
-      currentCameraType === Camera.Constants.Type.back ? Camera.Constants.Type.front 
-      : Camera.Constants.Type.back );
+      currentCameraType === CameraType.back ? CameraType.front 
+      : CameraType.back );
   }
 
   const flipFlash = () => {
@@ -87,8 +87,13 @@ const PostUploadScreen = () => {
       
       <View style={[styles.buttonContainer, {top: 40}]}>
         <MaterialIcons name="close" size={30} color={colors.white} />
+
         <Pressable onPress={flipFlash}>
-        <MaterialIcons name={flashModeToIcon[flash]} size={30} color={colors.white} />
+        <MaterialIcons 
+          name={flashModeToIcon[flash]} 
+          size={30} 
+          color={colors.white} 
+          />
         </Pressable>
         <MaterialIcons name="settings" size={30} color={colors.white} />
       </View>

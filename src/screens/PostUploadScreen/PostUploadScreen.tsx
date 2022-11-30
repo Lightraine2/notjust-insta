@@ -1,13 +1,31 @@
 import { View, Text, SafeAreaView, StyleSheet, Pressable } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { Camera, FlashMode } from 'expo-camera';
+import React, { useEffect, useState, useRef } from 'react'
+import { Camera, CameraPictureOptions, FlashMode } from 'expo-camera';
 import colors from '../../theme/colors';
 import { MaterialIcons } from '@expo/vector-icons'; 
+
+const flashModes = [
+  FlashMode.off,
+  FlashMode.on,
+  FlashMode.auto,
+  FlashMode.torch
+]
+
+const flashModeToIcon = {
+  [FlashMode.off]: 'flash-off',
+  [FlashMode.on]: 'flash-on',
+  [FlashMode.auto]: 'flash-auto',
+  [FlashMode.torch]: 'highlight'
+
+}
 
 const PostUploadScreen = () => {
   const [hasPermissions, setHasPermissions] = useState<boolean | null> (null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [isCameraReady, setIsCameraReady] = useState(false)
+
+  const camera = useRef<Camera>(null)
 
   useEffect(() => {
     const getPermission = async () => {
@@ -27,8 +45,24 @@ const PostUploadScreen = () => {
       : Camera.Constants.Type.back );
   }
 
-  const toggleFlash = () => {
-    console.log('toggleFlash')
+  const flipFlash = () => {
+    const currentIndex = flashModes.indexOf(flash);
+    const nextIndex = currentIndex === flashModes.length -1 ? 0 : currentIndex +1;
+    setFlash(flashModes[nextIndex])
+  }
+
+  const takePicture = async () => {
+    if (!isCameraReady || camera.current) {
+      return;
+    }
+
+    const options: CameraPictureOptions = {
+      quality: 0.7,
+      base64: false,
+      skipProcessing: true,
+    };
+
+    const result = await camera.current?.takePictureAsync(options);
   }
 
   if (hasPermissions === null) {
@@ -42,19 +76,32 @@ const PostUploadScreen = () => {
 
   return (
     <SafeAreaView style={styles.page}>
-      <Camera style={styles.camera} type={cameraType} ratio="4:3" flashMode={flash}/>
+      <Camera 
+        ref={camera}
+        style={styles.camera} 
+        type={cameraType} 
+        ratio="4:3" 
+        flashMode={flash} 
+//        onCameraReady={() => setIsCameraReady(true)} 
+      />
       
       <View style={[styles.buttonContainer, {top: 40}]}>
         <MaterialIcons name="close" size={30} color={colors.white} />
-        <Pressable onPress={toggleFlash}>
-        <MaterialIcons name="flash-off" size={30} color={colors.white} />
+        <Pressable onPress={flipFlash}>
+        <MaterialIcons name={flashModeToIcon[flash]} size={30} color={colors.white} />
         </Pressable>
         <MaterialIcons name="settings" size={30} color={colors.white} />
       </View>
       
       <View style={[styles.buttonContainer, {bottom: 25}]}>
         <MaterialIcons name="photo-library" size={30} color={colors.white} />
+        
+        {isCameraReady && (
+          <Pressable onPress={takePicture}>
         <View style={styles.circle}/>
+        </Pressable>
+          )}
+        
         <Pressable onPress={flipCamera}>
         <MaterialIcons name="flip-camera-ios" size={30} color={colors.white} />
         </Pressable>

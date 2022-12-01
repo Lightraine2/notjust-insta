@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react';
 import {View, Text, Pressable, StyleSheet, Image} from 'react-native';
 import colors from '../../theme/colors';
@@ -11,6 +12,8 @@ import { IPost } from '../../types/models';
 import Carousel from '../Carousel'
 import VideoPlayer from '../VideoPlayer'
 
+import {useNavigation} from '@react-navigation/native'
+
 interface IFeedPost  {
   post: IPost;
   isVisible: boolean
@@ -19,11 +22,18 @@ interface IFeedPost  {
 // get icons like so
 //import { createIconSet } from 'react-native-vector-icons';
 
-const FeedPost = ({post, isVisible}: IFeedPost) => {
+const FeedPost = (props: IFeedPost) => {
+  const {post, isVisible = false} = props;
 
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const [isLiked, setIsLiked] = useState(false);
+
+  const navigation = useNavigation();
+
+  const navigateToUser = () => {
+    navigation.navigate('UserProfile', {userId: post.user.id})
+  }
 
   const toggleDescriptionExpanded = () => {
       setIsDescriptionExpanded(v => !v);
@@ -76,7 +86,7 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
       style={styles.userAvatar}
       />
       </DoublePressable> 
-      <Text style={styles.userName}>{post.user.username}
+      <Text onPress={navigateToUser} style={styles.userName}>{post.user.username}
 
       </Text>
       <Entypo 
@@ -130,7 +140,7 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
 
   {/* Post Description */}
   <Text style={styles.text} numberOfLines={isDescriptionExpanded ? 0 : 3}>
-    <Text style={styles.bold}>{post.user.username}</Text>{' '}
+    <Text onPress={navigateToUser} style={styles.bold}>{post.user.username}</Text>{' '}
       {post.description}
   </Text>
 

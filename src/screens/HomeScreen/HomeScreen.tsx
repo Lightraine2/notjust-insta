@@ -1,3 +1,4 @@
+import React from 'react'
 import {FlatList, ViewabilityConfig, ViewToken} from 'react-native'; 
 import FeedPost from '../../components/FeedPost/FeedPost';
 import posts from '../../assets/data/posts.json'

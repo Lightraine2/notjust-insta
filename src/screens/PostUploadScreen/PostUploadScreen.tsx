@@ -24,6 +24,7 @@ const PostUploadScreen = () => {
   const [cameraType, setCameraType] = useState(CameraType.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.on);
   const [isCameraReady, setIsCameraReady] = useState(false)
+  const [isRecording, setIsRecording] = useState(false)
 
   const camera = useRef<Camera>(null)
 
@@ -65,6 +66,40 @@ const PostUploadScreen = () => {
     const result = await camera.current?.takePictureAsync(options);
   }
 
+  const startRecording = async () => {
+      console.warn('start recording')
+      if (!isCameraReady || !camera.current || isRecording) {
+        return;
+      }
+
+      const options: CameraRecordingOptions = {
+        quality: Camera.Constants.VideoQuality['640:480'],
+        maxDuration: 60,
+        maxFileSize: 10 * 1024 * 1024,
+        mute: false
+
+      }
+      setIsRecording(true);
+
+      try {
+        const result = await camera.current.recordAsync(options)
+        console.log(result)
+
+      } catch (e) {
+        console.log(e)
+      }
+
+      setIsRecording(false)
+     
+  } 
+
+  const stopRecording = () => {
+      if (isRecording) {
+        camera.current?.stopRecording()
+        setIsRecording(false);
+      }
+  }
+
   if (hasPermissions === null) {
     return <Text>Loading...</Text>
   }
@@ -103,8 +138,8 @@ const PostUploadScreen = () => {
         <MaterialIcons name="photo-library" size={30} color={colors.white} />
         
         {isCameraReady && (
-          <Pressable onPress={takePicture}>
-        <View style={styles.circle}/>
+          <Pressable onPress={takePicture} onLongPress={startRecording} onPressOut={stopRecording}>
+        <View style={[styles.circle, {backgroundColor: isRecording ? colors.accent : colors.white}]}/>
         </Pressable>
           )}
         

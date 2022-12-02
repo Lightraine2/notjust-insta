@@ -10,7 +10,8 @@ import FeedGridView from '../../components/FeedGridView/FeedGridView'
 const ProfileScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
-    const {userId} = route.params;
+    const userId = route.params?.userId;
+
     navigation.setOptions({title: user.username})
 
     return (

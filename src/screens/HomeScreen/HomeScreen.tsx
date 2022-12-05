@@ -1,7 +1,10 @@
 import React from 'react'
 import {FlatList, ViewabilityConfig, ViewToken} from 'react-native'; 
 import FeedPost from '../../components/FeedPost/FeedPost';
+
+import dojos from '../../assets/data/dojodata.json'
 import posts from '../../assets/data/posts.json'
+
 import {useRef, useState} from 'react'
 
 // get icons like so

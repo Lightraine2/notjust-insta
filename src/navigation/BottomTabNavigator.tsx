@@ -15,7 +15,7 @@ const BottomTabNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{
             tabBarShowLabel: false, 
-            tabBarActiveTintColor: colors.black
+            tabBarActiveTintColor: colors.odPrimay
             }}>
             <Tab.Screen 
             name='HomeStack' 
@@ -29,7 +29,7 @@ const BottomTabNavigator = () => {
              /> 
             }}
             />
-            <Tab.Screen 
+            <Tab.Screen
             name='Search' 
             component={HomeScreen}
             options={{tabBarIcon: ({color, size}) => 

@@ -7,7 +7,9 @@ const colors = {
     grey: '#666666',
     lightgrey: '#cccccc',
     border: '#dcdcdc',
-    error: '#fc0349'
+    error: '#fc0349',
+
+    odPrimay: '#003B4D'
 
 };
 

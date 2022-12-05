@@ -3,12 +3,14 @@ import {View, Text, Image } from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
 import HomeScreen from '../screens/HomeScreen/HomeScreen'
 import ProfileScreen from '../screens/ProfileScreen'
-import logo from '../assets/images/logo.png'
+import CommentsScreen from '../screens/CommentsScreen/CommentsScreen'
+//import logo from '../assets/images/logo.png'
 import BottomTabNavigator from './BottomTabNavigator'
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+// see this import for type declarations on navigation functions
+import { RootNavigatorParamList } from './types'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootNavigatorParamList>();
 
 const Navigation = () => {
   return (
@@ -33,10 +35,9 @@ const Navigation = () => {
          */}
 
 
-        <Stack.Screen 
-        name="UserProfile" 
-        component={ProfileScreen} 
-        options={{title: 'Profile'}}
+      <Stack.Screen
+        name='Comments'
+        component={CommentsScreen}
         />
 
       </Stack.Navigator>
@@ -53,12 +54,12 @@ const Navigation = () => {
 //   )
 // }
 
-const HeaderTitle = () => {
+// const HeaderTitle = () => {
 
-  return (
-    <Image source={logo} resizeMode="contain" style={{width: 150, height: 40}} />
-  )
+//   return (
+//     <Image source={logo} resizeMode="contain" style={{width: 150, height: 40}} />
+//   )
 
-}
+// }
 
 export default Navigation;

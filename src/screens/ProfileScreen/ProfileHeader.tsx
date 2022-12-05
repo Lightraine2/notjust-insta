@@ -4,9 +4,10 @@ import styles from "./styles"
 import user from '../../assets/data/user.json'
 import Button from "../../components/Button"
 import { CommonActions, useNavigation } from "@react-navigation/native"
+import { FeedNavigationProp } from "../../navigation/types"
 
 const ProfileHeader = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<FeedNavigationProp>()
     return (
         <ScrollView style={styles.root}>
             <View style={styles.headerRow}>
@@ -33,7 +34,7 @@ const ProfileHeader = () => {
         <View style={{flexDirection: 'row'}}>
         <Button 
         text="Edit Profile" 
-        onPress={() => console.warn("On edit profile")} 
+        onPress={() => navigation.navigate('Edit Profile')} 
         />
         
         <Button text="Back" onPress={() =>  

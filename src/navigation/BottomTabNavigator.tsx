@@ -3,11 +3,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import PostUploadScreen from '../screens/PostUploadScreen';
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons'; 
 import colors from '../theme/colors';
 import HomeStackNavigator from './HomeStackNavigator';
+import ProfileStackNavigator from './ProfileStackNavigator';
+import { BottomTabNavigatorParamList } from './types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 const BottomTabNavigator = () => {
     return (
@@ -59,9 +61,11 @@ const BottomTabNavigator = () => {
             }}/>
             <Tab.Screen 
             name='MyProfile' 
-            component={ProfileScreen}
-            options={{tabBarIcon: ({color, size}) =>
-            <MaterialIcons name="add-circle"
+            component={ProfileStackNavigator}
+            options={{
+                headerShown: false,
+                tabBarIcon: ({color, size}) =>
+            <FontAwesome name="user-circle-o"
             size={size}
             color={color}
             />
